@@ -1,0 +1,1 @@
+create or replace table TODO (TaskId int, TaskName varchar(255),TaskDesc varchar(255), CreatedDate date, Lastupdateddate date);
