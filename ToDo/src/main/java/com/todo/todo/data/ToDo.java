@@ -1,15 +1,14 @@
 package com.todo.todo.data;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="TODO")
+@Table(name = "TODO")
 public class ToDo {
 
 	@Id
@@ -20,9 +19,9 @@ public class ToDo {
 	@Column(name = "TaskDesc")
 	private String taskDesc;
 	@Column(name = "CreatedDate")
-	private Date createdDate;
+	private LocalDateTime createdDate;
 	@Column(name = "LastUpdatedDate")
-	private Date lastUpdatedDate;
+	private LocalDateTime lastUpdatedDate;
 
 	public ToDo() {
 		super();
@@ -34,7 +33,8 @@ public class ToDo {
 				+ createdDate + ", lastUpdatedDate=" + lastUpdatedDate + "]";
 	}
 
-	public ToDo(Integer taskId, String taskName, String taskDesc, Date createdDate, Date lastUpdatedDate) {
+	public ToDo(Integer taskId, String taskName, String taskDesc, LocalDateTime createdDate,
+			LocalDateTime lastUpdatedDate) {
 		super();
 		this.taskId = taskId;
 		this.taskName = taskName;
@@ -67,19 +67,19 @@ public class ToDo {
 		this.taskDesc = taskDesc;
 	}
 
-	public Date getCreatedDate() {
+	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public Date getLastUpdatedDate() {
+	public LocalDateTime getLastUpdatedDate() {
 		return lastUpdatedDate;
 	}
 
-	public void setLastUpdatedDate(Date lastUpdatedDate) {
+	public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 

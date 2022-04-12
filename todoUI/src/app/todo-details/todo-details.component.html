@@ -12,10 +12,10 @@
     <label><b>Task Description </b></label> {{todo.taskDesc}}
   </div>  
   <div>
-    <label><b>Created Date </b></label> {{todo.createdDate}}
+    <label><b>Created Date </b></label> {{todo.createdDate | date:'MM/dd/yyyy hh:mm:ss'}}
   </div> 
   <div>
-    <label><b>Last updated date </b></label> {{todo.lastUpdatedDate}}
+    <label><b>Last updated date </b></label> {{todo.lastUpdatedDate | date:'MM/dd/yyyy hh:mm:ss'}}
   </div> 
 </div>
 

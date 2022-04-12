@@ -18,8 +18,8 @@
             <td>{{todo.taskId}}</td>
             <td>{{todo.taskName}}</td>
             <td>{{todo.taskDesc}}</td>
-            <td>{{todo.createdDate}}</td>
-            <td>{{todo.lastUpdatedDate}}</td>
+            <td>{{todo.createdDate | date:'MM/dd/yyyy hh:mm:ss'}}</td>
+            <td>{{todo.lastUpdatedDate | date:'MM/dd/yyyy hh:mm:ss'}}</td>
             <td><button (click)="deleteTodo(todo.taskId)" class="btn btn-danger">Delete</button>
                 <button (click)="todoDetails(todo.taskId)" class="btn btn-info" style="margin-left: 10px">Details</button>
                 <button (click)="updateTodo(todo.taskId)" class="btn btn-info" style="margin-left: 10px">Edit</button>

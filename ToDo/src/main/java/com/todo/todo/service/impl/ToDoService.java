@@ -1,5 +1,8 @@
 package com.todo.todo.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +24,22 @@ public class ToDoService {
 	@Autowired
 	private ToDoDao dao;
 
+	public ToDoService(ToDoDao dao) {
+		this.dao = dao;
+	}
+
 	/* Service method to retrieve task list */
 	public List<ToDo> getToDoList() {
 		logger.debug("Entering getToDoList()");
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("uuuu-MM-dd H:mm:ss").toFormatter();
 		List<ToDo> list = dao.findAll();
+		for (int i = 0; i < list.size(); i++) {
+			String formatDateTimeCd = list.get(i).getCreatedDate().format(formatter);
+			String formatDateTimeLd = list.get(i).getLastUpdatedDate().format(formatter);
+			list.get(i).setCreatedDate(LocalDateTime.parse(formatDateTimeCd, formatter));
+			list.get(i).setLastUpdatedDate(LocalDateTime.parse(formatDateTimeLd, formatter));
+		}
+
 		logger.debug("Exiting getToDoList()");
 		return list;
 	}
@@ -32,7 +47,16 @@ public class ToDoService {
 	/* Service method to retrieve task by id */
 	public Optional<ToDo> getTodoById(Integer id) {
 		logger.debug("Entering getTodoById() with id : " + id);
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("uuuu-MM-dd H:mm:ss").toFormatter();
 		Optional<ToDo> rec = dao.findById(id);
+		if (rec.isPresent()) {
+			System.err.println(rec.toString());
+			String formatDateTimeCd = rec.get().getCreatedDate().format(formatter);
+			String formatDateTimeLd = rec.get().getLastUpdatedDate().format(formatter);
+			System.err.println(formatDateTimeCd+" "+formatDateTimeLd);
+			rec.get().setCreatedDate(LocalDateTime.parse(formatDateTimeCd, formatter));
+			rec.get().setLastUpdatedDate(LocalDateTime.parse(formatDateTimeLd, formatter));
+		}
 		logger.debug("Exiting getTodoById()");
 		return rec;
 	}
@@ -41,9 +65,8 @@ public class ToDoService {
 	public ToDo insertTodo(ToDo rec) throws TodoException {
 		try {
 			logger.debug("Entering insertTodo()");
-			java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-			rec.setCreatedDate(date);
-			rec.setLastUpdatedDate(date);
+			rec.setCreatedDate(LocalDateTime.now());
+			rec.setLastUpdatedDate(LocalDateTime.now());
 			ToDo saveRec = dao.save(rec);
 			logger.debug("Exiting insertTodo()");
 			return saveRec;
@@ -70,8 +93,7 @@ public class ToDoService {
 	/* Service method to update task */
 	public ToDo updateTodo(ToDo rec) {
 		logger.debug("Entering updateTodo()");
-		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-		rec.setLastUpdatedDate(date);
+		rec.setLastUpdatedDate(LocalDateTime.now());
 		Optional<ToDo> oldrec = dao.findById(rec.getTaskId());
 		ToDo todo = null;
 		if (oldrec.isPresent()) {

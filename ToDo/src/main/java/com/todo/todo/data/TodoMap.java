@@ -1,6 +1,6 @@
 package com.todo.todo.data;
 
-public class TodoMap {
+public class TodoMap {/*
 
 	public static ToDoJson mapToJson(ToDo obj) {
 		ToDoJson json = new ToDoJson();
@@ -24,4 +24,4 @@ public class TodoMap {
 
 	}
 
-}
+*/}
